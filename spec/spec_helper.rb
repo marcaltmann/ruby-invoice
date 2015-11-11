@@ -94,3 +94,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+# Add root directory to load path
+path = Pathname(__dir__).expand_path.parent
+$LOAD_PATH.unshift(path.to_s)
