@@ -11,7 +11,6 @@ describe CreateInvoice do
 
     expect(dbl).to have_received(:validate)
     expect(dbl).to have_received(:persist)
-    expect(invoice_creator.perform).to be true
   end
 
   it 'should raise an error if Invoice entity is invalid' do
@@ -21,6 +20,6 @@ describe CreateInvoice do
 
     invoice_creator = CreateInvoice.new(customer_name: nil, service: nil,
                                         amount: nil, date: nil)
-    expect(invoice_creator.perform).to be false
+    invoice_creator.perform
   end
 end

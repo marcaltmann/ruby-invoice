@@ -1,5 +1,8 @@
+require_relative '../entities/invoice'
+
 class CreateInvoice
-  def initialize(invoice_attributes)
+  def initialize(output_object, invoice_attributes)
+    @output_object = output_object
     @invoice_attributes = invoice_attributes
   end
 
@@ -8,9 +11,9 @@ class CreateInvoice
     begin
       @invoice.validate
       @invoice.persist
-      return true
+      @output_object.success('toll')
     rescue
-      return false
+      @output_object.failure('nicht so toll')
     end
   end
 end
