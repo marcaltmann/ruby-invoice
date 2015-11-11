@@ -7,7 +7,7 @@ describe Invoice do
                 date: Date.today)
   end
 
-  it 'can create new invoice' do
+  it 'can create a new invoice' do
     invoice
   end
 
