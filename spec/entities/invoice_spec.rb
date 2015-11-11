@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'entities/invoice.rb'
 
 describe Invoice do
