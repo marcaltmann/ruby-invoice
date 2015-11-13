@@ -10,14 +10,23 @@ class CreateInvoice
   end
 
   def perform
+    begin
+      create_and_persist_invoice
+    rescue
+      handle_error
+    end
+  end
+
+  private
+
+  def create_and_persist_invoice
     @invoice = Invoice.new(customer_name: @customer_name, service: @service,
                            amount: @amount, date: @date)
-    begin
-      @invoice.validate
-      @invoice.persist
-      @output_object.success('toll')
-    rescue
-      @output_object.failure('nicht so toll')
-    end
+    @invoice.persist
+    @output_object.success('toll')
+  end
+
+  def handle_error
+    @output_object.failure('nicht so toll')
   end
 end

@@ -12,7 +12,6 @@ describe CreateInvoice do
                                         amount: 9.95, date: Date.today)
     invoice_creator.perform
 
-    expect(dbl).to have_received(:validate)
     expect(dbl).to have_received(:persist)
   end
 
