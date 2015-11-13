@@ -11,7 +11,7 @@ class CreateInvoice
 
   def perform
     begin
-      create_and_persist_invoice
+      create_invoice
     rescue
       handle_error
     end
@@ -19,11 +19,11 @@ class CreateInvoice
 
   private
 
-  def create_and_persist_invoice
+  def create_invoice
     @invoice = Invoice.new(customer_name: @customer_name, service: @service,
                            amount: @amount, date: @date)
     @invoice.persist
-    @output_object.success('toll')
+    @output_object.success(@invoice.get_invoice_number)
   end
 
   def handle_error

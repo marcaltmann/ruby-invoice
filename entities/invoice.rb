@@ -19,4 +19,8 @@ class Invoice
     validate
     # does nothing more yet
   end
+
+  def get_invoice_number
+    1
+  end
 end

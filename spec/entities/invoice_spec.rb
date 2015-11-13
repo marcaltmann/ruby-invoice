@@ -40,4 +40,8 @@ describe Invoice do
       expect { invalid.validate }.to raise_error(StandardError)
     end
   end
+
+  it 'returns a dummy invoice number' do
+    expect(invoice.get_invoice_number).to eq(1)
+  end
 end
