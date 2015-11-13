@@ -7,7 +7,12 @@ class Invoice
   end
 
   def validate
-    # does nothing yet
+    if @customer_name.nil? &&
+      @service.nil? &&
+      @amount.nil? &&
+      @date.nil?
+      raise StandardError.new
+    end
   end
 
   def persist

@@ -12,12 +12,13 @@ describe Invoice do
     invoice.persist
   end
 
-  # here we need some validation tests!!
-  it 'valid invoice should be validated' do
-    invoice.validate
-  end
+  describe 'validation' do
+    it 'should be successful for an object with all fields present' do
+      invoice.validate
+    end
 
-  it 'invalid invoice validation should throw an error' do
-    expect { invalid_invoice.validate }.to raise_error
+    it 'should throw an error for an object with all fields blank' do
+      expect { invalid_invoice.validate }.to raise_error(StandardError)
+    end
   end
 end
