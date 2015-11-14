@@ -15,6 +15,10 @@ class Invoice
     end
   end
 
+  def get_errors
+    []
+  end
+
   def persist
     validate
     # does nothing more yet

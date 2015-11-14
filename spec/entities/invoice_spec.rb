@@ -41,6 +41,12 @@ describe Invoice do
     end
   end
 
+  describe 'error handling' do
+    it 'returns an empty array' do
+      expect(invoice.get_errors).to eq([])
+    end
+  end
+
   it 'returns a dummy invoice number' do
     expect(invoice.get_invoice_number).to eq(1)
   end

@@ -27,6 +27,6 @@ class CreateInvoice
   end
 
   def handle_error
-    @output_object.failure('nicht so toll')
+    @output_object.failure(@invoice.get_errors)
   end
 end

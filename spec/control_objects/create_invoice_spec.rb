@@ -1,7 +1,7 @@
 require 'control_objects/create_invoice'
 
 describe CreateInvoice do
-  let(:dbl) { instance_double(Invoice, persist: nil, get_invoice_number: 1) }
+  let(:dbl) { instance_double(Invoice, persist: nil, get_invoice_number: 1, get_errors: ['error1']) }
   let(:output) { double(OutputObject, success: nil, failure: nil) }
 
   it 'should create a new Invoice entity and put out invoice number' do
@@ -25,6 +25,7 @@ describe CreateInvoice do
                                         amount: nil, date: nil)
     invoice_creator.perform
 
-    expect(output).to have_received(:failure)
+    expect(dbl).to have_received(:get_errors)
+    expect(output).to have_received(:failure).with(['error1'])
   end
 end
