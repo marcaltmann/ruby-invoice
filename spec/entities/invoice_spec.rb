@@ -22,27 +22,27 @@ describe Invoice do
 
     it 'should throw an error for an Invoice missing the customer name' do
       invoice = Invoice.new(customer_name: nil, service: 'something', amount: 9.95, date: Date.today)
-      expect { invalid.validate }.to raise_error(StandardError)
+      expect { invoice.validate }.to raise_error(StandardError)
     end
 
-    it 'should throw an error for an Invoice missing the service description' do
-      invoice = Invoice.new(customer_name: 'Franz Beckenbauer', service: nil, amount: 9.95, date: Date.today)
-      expect { invalid.validate }.to raise_error(StandardError)
+    it 'should store a single error in an array' do
+      invoice = Invoice.new(customer_name: nil, service: 'something', amount: 9.95, date: Date.today)
+      expect { invoice.validate }.to raise_error(StandardError)
+
+      expect(invoice.get_errors).to eq(['customer_name must be present'])
     end
 
-    it 'should throw an error for an Invoice missing the amount' do
-      invoice = Invoice.new(customer_name: 'Franz Beckenbauer', service: 'something', amount: nil, date: Date.today)
-      expect { invalid.validate }.to raise_error(StandardError)
-    end
+    it 'should collect multiple errors in an array' do
+      invoice = Invoice.new(customer_name: nil, service: nil, amount: nil, date: nil)
+      expect { invoice.validate }.to raise_error(StandardError)
 
-    it 'should throw an error for an Invoice missing the date' do
-      invoice = Invoice.new(customer_name: 'Franz Beckenbauer', service: 'something', amount: 9.95, date: nil)
-      expect { invalid.validate }.to raise_error(StandardError)
+      expect(invoice.get_errors).to eq(['customer_name must be present', 'service must be present',
+                                        'amount must be present', 'date must be present'])
     end
   end
 
   describe 'error handling' do
-    it 'returns an empty array' do
+    it 'returns an empty array for a valid Invoice' do
       expect(invoice.get_errors).to eq([])
     end
   end
