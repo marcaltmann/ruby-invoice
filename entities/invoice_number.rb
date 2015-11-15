@@ -11,8 +11,9 @@ class InvoiceNumber
     next_number
   end
 
-  def initialize(year = Date.today.year)
-    @year = year
+  def initialize(date = Date.today)
+    raise ArgumentError.new unless date.is_a? Date
+    @year = date.year
     @sequential = InvoiceNumber.generate_sequential
   end
 

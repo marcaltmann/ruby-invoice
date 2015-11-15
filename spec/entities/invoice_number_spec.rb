@@ -9,9 +9,9 @@ describe InvoiceNumber do
 
   describe 'prefix' do
     it 'should consist of year, separator and sequential number' do
-      invoice_number = InvoiceNumber.new(2015)
+      invoice_number = InvoiceNumber.new(Date.parse('2013-07-01'))
 
-      expect(invoice_number.to_s).to eq('2015/01')
+      expect(invoice_number.to_s).to eq('2013/01')
     end
 
     it 'if no year is given, should consist of current year and sequential number' do
@@ -19,6 +19,10 @@ describe InvoiceNumber do
 
       year_str = Date.today.year.to_s
       expect(invoice_number.to_s).to eq("#{year_str}/01")
+    end
+
+    it 'should throw an error if no Date is given as an argument' do
+      expect { InvoiceNumber.new('String') }.to raise_error(ArgumentError)
     end
   end
 
