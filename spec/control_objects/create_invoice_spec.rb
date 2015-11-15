@@ -1,3 +1,4 @@
+require 'errors'
 require 'control_objects/create_invoice'
 
 describe CreateInvoice do
@@ -13,12 +14,12 @@ describe CreateInvoice do
     invoice_creator.perform
 
     expect(dbl).to have_received(:persist)
-    expect(output).to have_received(:success).with(1)
+    expect(output).to have_received(:success).with('1')
   end
 
   it 'should raise an error if Invoice entity is invalid' do
     allow(Invoice).to receive(:new).and_return(dbl)
-    allow(dbl).to receive(:persist).and_raise(StandardError.new)
+    allow(dbl).to receive(:persist).and_raise(ValidationError.new)
 
     invoice_creator = CreateInvoice.new(output,
                                         customer_name: nil, service: nil,

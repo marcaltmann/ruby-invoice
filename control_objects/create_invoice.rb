@@ -1,4 +1,5 @@
 require_relative '../entities/invoice'
+require_relative '../errors.rb'
 
 class CreateInvoice
   def initialize(output_object, customer_name:, service:, amount:, date:)
@@ -12,7 +13,7 @@ class CreateInvoice
   def perform
     begin
       create_invoice
-    rescue
+    rescue ValidationError
       handle_error
     end
   end
@@ -23,7 +24,7 @@ class CreateInvoice
     @invoice = Invoice.new(customer_name: @customer_name, service: @service,
                            amount: @amount, date: @date)
     @invoice.persist
-    @output_object.success(@invoice.get_invoice_number)
+    @output_object.success(@invoice.get_invoice_number.to_s)
   end
 
   def handle_error

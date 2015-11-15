@@ -1,3 +1,6 @@
+require_relative '../entities/invoice_number'
+require_relative '../errors'
+
 class Invoice
   def initialize(customer_name:, service:, amount:, date:)
     @customer_name = customer_name
@@ -11,7 +14,7 @@ class Invoice
       @service.nil? ||
       @amount.nil? ||
       @date.nil?
-      raise StandardError.new
+      raise ValidationError.new
     end
   end
 
@@ -30,6 +33,6 @@ class Invoice
   end
 
   def get_invoice_number
-    1
+    @invoice_number ||= InvoiceNumber.new
   end
 end
