@@ -24,7 +24,8 @@ class CreateInvoice
     @invoice = Invoice.new(customer_name: @customer_name, service: @service,
                            amount: @amount, date: @date)
     @invoice.persist
-    @output_object.success(@invoice.get_invoice_number.to_s)
+    invoice_number = @invoice.get_invoice_number.to_s
+    @output_object.success(invoice_number)
   end
 
   def handle_error
