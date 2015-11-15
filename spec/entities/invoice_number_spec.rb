@@ -10,7 +10,6 @@ describe InvoiceNumber do
   describe 'prefix' do
     it 'should consist of year, separator and sequential number' do
       invoice_number = InvoiceNumber.new(Date.parse('2013-07-01'))
-
       expect(invoice_number.to_s).to eq('2013/01')
     end
 
@@ -27,10 +26,15 @@ describe InvoiceNumber do
   end
 
   describe 'sequential number generator' do
-    it 'should return a sequential number beginning at 1' do
-      expect(InvoiceNumber.generate_sequential).to eq(1)
-      expect(InvoiceNumber.generate_sequential).to eq(2)
-      expect(InvoiceNumber.generate_sequential).to eq(3)
+    it 'given a prefix, should return a number beginning at 1' do
+      expect(InvoiceNumber.new(Date.parse('2012-01-01')).to_s).to eq('2012/01')
+      expect(InvoiceNumber.new(Date.parse('2012-01-01')).to_s).to eq('2012/02')
+      expect(InvoiceNumber.new(Date.parse('2012-01-01')).to_s).to eq('2012/03')
+    end
+
+    it 'should count for each prefix separately' do
+      expect(InvoiceNumber.new(Date.parse('2012-01-01')).to_s).to eq('2012/01')
+      expect(InvoiceNumber.new(Date.parse('2013-01-01')).to_s).to eq('2013/01')
     end
   end
 end
